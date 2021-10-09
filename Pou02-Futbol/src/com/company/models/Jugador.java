@@ -32,6 +32,7 @@ public class Jugador {
         if(this.groga){
             System.out.println("El jugador " + this.nom + " " + this.cognom + " ha sigut expulsat");
             this.expulsat = true;
+            this.jugant = false;
         }
         else{
             if(gravetat == 0){
@@ -40,6 +41,7 @@ public class Jugador {
             else{
                 System.out.println("El jugador " + this.nom + " " + this.cognom + " ha sigut expulsat");
                 this.expulsat = true;
+                this.jugant = false;
             }
 
         }

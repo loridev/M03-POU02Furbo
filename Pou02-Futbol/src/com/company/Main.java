@@ -6,7 +6,7 @@ import com.company.utils.Eines;
 
 import java.util.ArrayList;
 
-//TODO: CANVI JUGADORS
+//TODO: CANVI JUGADORS I CONTROLAR QUE ESTIGUIN EXPULSATS O NO
 public class Main {
     static ArrayList<Equip> equips = carregarPoolEquips();
 
@@ -26,10 +26,12 @@ public class Main {
                         "3. Falta d'un jugador visitant \n" +
                         "4. Gol d'un jugador local \n" +
                         "5. Gol d'un jugador visitant \n" +
-                        "6. Veure jugadors equip local \n" +
-                        "7. Veure jugadors equip visitant");
+                        "6. Canviar jugador local \n" +
+                        "7. Canviar jugador visitant \n" +
+                        "8. Veure jugadors equip local \n" +
+                        "9. Veure jugadors equip visitant");
 
-                menu = ControladorsErrors.llegirEnter(1, 7);
+                menu = ControladorsErrors.llegirEnter(1, 9);
 
                 switch (menu){
                     case 1 -> partit.passarTemps();
@@ -79,9 +81,20 @@ public class Main {
                         }
                     }
                     case 6 -> {
+                        do{
+                            System.out.println("A quin jugador vols canviar?");
+                            Eines.imprirArrayList(partit.getLocal().getJugadors());
+                            jugadorSeleccionat = ControladorsErrors.llegirEnter(1, partit.getLocal().getJugadors().size());
+                            if(!partit.getLocal().getJugadors().get(jugadorSeleccionat).isJugant()){
+                                System.out.println("Has de seleccionar un jugador que estigui al camp!");
+                            }
+                        }while (partit.getLocal().getJugadors().get(jugadorSeleccionat).isJugant());
+
+                    }
+                    case 8 -> {
                         Eines.imprirArrayList(partit.getLocal().getJugadors());
                     }
-                    case 7 -> {
+                    case 9 -> {
                         Eines.imprirArrayList(partit.getVisitant().getJugadors());
                     }
                 }
