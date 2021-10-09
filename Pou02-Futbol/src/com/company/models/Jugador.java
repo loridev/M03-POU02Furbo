@@ -29,6 +29,7 @@ public class Jugador {
     }
 
     public void rebreTargeta(int gravetat){
+        this.equip.contarFalta();
         if(this.groga){
             System.out.println("El jugador " + this.nom + " " + this.cognom + " ha sigut expulsat");
             this.expulsat = true;
@@ -55,8 +56,16 @@ public class Jugador {
         return jugant;
     }
 
+    public boolean isExpulsat() {
+        return expulsat;
+    }
+
     public String getNom() {
         return nom;
+    }
+
+    public String getCognom() {
+        return cognom;
     }
 
     public void setJugant(boolean jugant) {

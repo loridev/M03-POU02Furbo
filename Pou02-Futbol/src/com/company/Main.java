@@ -81,14 +81,48 @@ public class Main {
                         }
                     }
                     case 6 -> {
+                        int jugadorEntrant;
                         do{
                             System.out.println("A quin jugador vols canviar?");
                             Eines.imprirArrayList(partit.getLocal().getJugadors());
                             jugadorSeleccionat = ControladorsErrors.llegirEnter(1, partit.getLocal().getJugadors().size());
-                            if(!partit.getLocal().getJugadors().get(jugadorSeleccionat).isJugant()){
+                            if(!partit.getLocal().getJugadors().get(jugadorSeleccionat-1).isJugant()){
                                 System.out.println("Has de seleccionar un jugador que estigui al camp!");
                             }
-                        }while (partit.getLocal().getJugadors().get(jugadorSeleccionat).isJugant());
+                        }while (!partit.getLocal().getJugadors().get(jugadorSeleccionat-1).isJugant());
+
+                        do{
+                            System.out.println("Per quin jugador el vols canviar?");
+                            jugadorEntrant = ControladorsErrors.llegirEnter(1, partit.getLocal().getJugadors().size());
+                            if(partit.getLocal().getJugadors().get(jugadorEntrant-1).isJugant()){
+                                System.out.println("Has de seleccionar un jugador que no estigui al camp!");
+                            }
+                        }while (partit.getLocal().getJugadors().get(jugadorEntrant-1).isJugant());
+
+                        partit.getLocal().getEntrenador().canviarJugador(partit.getLocal().getJugadors().get(jugadorSeleccionat-1), partit.getLocal().getJugadors().get(jugadorEntrant-1));
+
+                    }
+                    case 7 -> {
+                        int jugadorEntrant;
+                        do{
+                            System.out.println("A quin jugador vols canviar?");
+                            Eines.imprirArrayList(partit.getVisitant().getJugadors());
+                            jugadorSeleccionat = ControladorsErrors.llegirEnter(1, partit.getVisitant().getJugadors().size());
+                            if(!partit.getVisitant().getJugadors().get(jugadorSeleccionat-1).isJugant()){
+                                System.out.println("Has de seleccionar un jugador que estigui al camp!");
+                            }
+                        }while (!partit.getVisitant().getJugadors().get(jugadorSeleccionat-1).isJugant());
+
+                        do{
+                            System.out.println("Per quin jugador el vols canviar?");
+                            jugadorEntrant = ControladorsErrors.llegirEnter(1, partit.getLocal().getJugadors().size());
+                            if(partit.getVisitant().getJugadors().get(jugadorEntrant-1).isJugant() || partit.getVisitant().getJugadors().get(jugadorEntrant-1).isExpulsat()){
+                                System.out.println("Has de seleccionar un jugador que no estigui al camp i no estigui expulsat!");
+                            }
+                        }while (partit.getVisitant().getJugadors().get(jugadorEntrant-1).isJugant() || partit.getVisitant().getJugadors().get(jugadorEntrant-1).isExpulsat());
+
+                        partit.getVisitant().getEntrenador().canviarJugador(partit.getVisitant().getJugadors().get(jugadorSeleccionat-1),
+                                partit.getVisitant().getJugadors().get(jugadorEntrant-1));
 
                     }
                     case 8 -> {

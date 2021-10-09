@@ -36,8 +36,10 @@ public class Partit {
     private void acabar(){
         if ((this.local.getGols() != this.visitant.getGols()) || tempsMaxim == 120) {
             System.out.println("El partit ha acabat! \n" +
-                    "Resultat: "+this.local.getNom() + " " + this.local.getGols() + " - "
-                    + this.visitant.getGols() + " " + this.visitant.getNom());
+                    "Resultat: " + this.local.getNom() + " " + this.local.getGols() + " - " +
+                    this.visitant.getGols() + " " + this.visitant.getNom() + "\n" +
+                    "Faltes: " + this.local.getNom() + " " + this.local.getFaltes() + " - " +
+                    this.visitant.getFaltes() + " " + this.visitant.getNom());
         }
         else{
             if(tempsMaxim == 90){

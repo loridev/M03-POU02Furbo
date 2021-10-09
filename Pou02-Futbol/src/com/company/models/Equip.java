@@ -6,7 +6,7 @@ public class Equip {
     private final String nom;
     private int gols;
     private final ArrayList<Jugador> jugadors = new ArrayList<>();
-    private int numFaltes;
+    private int faltes;
     private Entrenador entrenador;
 
     public Equip(String nom) {
@@ -18,7 +18,7 @@ public class Equip {
     }
 
     public void contarFalta(){
-        this.numFaltes++;
+        this.faltes++;
     }
 
     public String getNom() {
@@ -29,8 +29,16 @@ public class Equip {
         return gols;
     }
 
+    public Entrenador getEntrenador() {
+        return entrenador;
+    }
+
     public ArrayList<Jugador> getJugadors() {
         return this.jugadors;
+    }
+
+    public int getFaltes() {
+        return faltes;
     }
 
     public void setEntrenador(Entrenador entrenador) {
@@ -60,7 +68,7 @@ public class Equip {
                 "nom='" + nom + '\'' +
                 ", gols=" + gols +
                 ", JUGADORS=" + jugadors +
-                ", numFaltes=" + numFaltes +
+                ", numFaltes=" + faltes +
                 '}';
     }
 }
