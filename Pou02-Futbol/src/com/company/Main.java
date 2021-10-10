@@ -1,3 +1,11 @@
+/*
+    HOLA RAIMON, ELS JAVADOCS ESTAN A LA CARPETA DOCS DE L'ARREL DEL PROJECTE, PERO SI ELS VOLS GENERAR I QUE ELS
+    ACCENTS ES VEUIN CORRECTAMENT, ESCRIU EL SEGÜENT A "other command line arguments:" A LA FINESTRA ON ES GENERA
+    LA DOCUMENTACIÓ: -encoding UTF-8 -charset UTF-8 -docencoding UTF-8
+ */
+
+
+
 package com.company;
 
 import com.company.models.*;
@@ -6,30 +14,38 @@ import com.company.utils.Eines;
 
 import java.util.ArrayList;
 
-//TODO: CANVI JUGADORS I CONTROLAR QUE ESTIGUIN EXPULSATS O NO
+/**
+ * Classe executable del programa
+ */
 public class Main {
     static ArrayList<Equip> equips = carregarPoolEquips();
 
+    /**
+     * Mètode que controla el que s'executarà quan s'executi el programa
+     *
+     * @param args El codi a executar
+     */
     public static void main(String[] args) {
         int menu;
         int jugadorSeleccionat;
-        ArrayList<Jugador> jugadors = carregarPoolJugadors();
-        ArrayList<Entrenador> entrenadors = carregarPoolEntrenadors();
+        carregarPoolJugadors();
+        carregarPoolEntrenadors();
         Partit partit = new Partit(equips.get(0), equips.get(1));
         Arbitre arbitre = new Arbitre("Marc","Martinez","Principal", partit);
         if (partit.iniciar()){
             do{
 
-                System.out.println("Que vols fer?\n" +
-                        "1. Avançar 15 minuts \n" +
-                        "2. Falta d'un jugador local \n" +
-                        "3. Falta d'un jugador visitant \n" +
-                        "4. Gol d'un jugador local \n" +
-                        "5. Gol d'un jugador visitant \n" +
-                        "6. Canviar jugador local \n" +
-                        "7. Canviar jugador visitant \n" +
-                        "8. Veure jugadors equip local \n" +
-                        "9. Veure jugadors equip visitant");
+                System.out.println("""
+                        Que vols fer?
+                        1. Avançar 15 minuts\s
+                        2. Falta d'un jugador local\s
+                        3. Falta d'un jugador visitant\s
+                        4. Gol d'un jugador local\s
+                        5. Gol d'un jugador visitant\s
+                        6. Canviar jugador local\s
+                        7. Canviar jugador visitant\s
+                        8. Veure jugadors equip local\s
+                        9. Veure jugadors equip visitant""");
 
                 menu = ControladorsErrors.llegirEnter(1, 9);
 
@@ -44,7 +60,7 @@ public class Main {
                         }
                         else{
                             System.out.println("Quina és la gravetat de la falta (0 groga, 1 vermella)");
-                            arbitre.treureTarjeta(partit.getLocal().getJugadors().get(jugadorSeleccionat - 1), ControladorsErrors.llegirEnter(0, 1));
+                            arbitre.treureTargeta(partit.getLocal().getJugadors().get(jugadorSeleccionat - 1), ControladorsErrors.llegirEnter(0, 1));
                         }
                     }
                     case 3 -> {
@@ -56,7 +72,7 @@ public class Main {
                         }
                         else{
                             System.out.println("Quina és la gravetat de la falta (0 groga, 1 vermella)");
-                            arbitre.treureTarjeta(partit.getVisitant().getJugadors().get(jugadorSeleccionat - 1), ControladorsErrors.llegirEnter(0, 1));
+                            arbitre.treureTargeta(partit.getVisitant().getJugadors().get(jugadorSeleccionat - 1), ControladorsErrors.llegirEnter(0, 1));
                         }                    }
                     case 4 -> {
                         System.out.println("Quin jugador local ha fet gol?");
@@ -125,18 +141,19 @@ public class Main {
                                 partit.getVisitant().getJugadors().get(jugadorEntrant-1));
 
                     }
-                    case 8 -> {
-                        Eines.imprirArrayList(partit.getLocal().getJugadors());
-                    }
-                    case 9 -> {
-                        Eines.imprirArrayList(partit.getVisitant().getJugadors());
-                    }
+                    case 8 -> Eines.imprirArrayList(partit.getLocal().getJugadors());
+                    case 9 -> Eines.imprirArrayList(partit.getVisitant().getJugadors());
                 }
 
             }while (partit.getMinuts() < Partit.tempsMaxim);
         }
     }
 
+    /**
+     * Mètode que s'encarrega de carregar Equips a memòria per usar-los al programa
+     *
+     * @return ArrayList d'Equips ple amb els objectes de dins el mètode.
+     */
     private static ArrayList<Equip> carregarPoolEquips(){
         ArrayList<Equip> retorn = new ArrayList<>();
         retorn.add(new Equip("Barcelona"));
@@ -158,55 +175,57 @@ public class Main {
         return retorn;
     }
 
-    private static ArrayList<Jugador> carregarPoolJugadors(){
+    /**
+     * Mètode que carrega objectes Jugador als Equips
+     */
+    private static void carregarPoolJugadors(){
         int contadorsal = 0;
-        ArrayList<Jugador> retorn = new ArrayList<>();
-        retorn.add(new Jugador("Juan", "Garcia", true, ++contadorsal, "Porter", equips.get(0)));
-        retorn.add(new Jugador("Eric", "Rodriguez", true, ++contadorsal, "Defensa", equips.get(0)));
-        retorn.add(new Jugador("John", "Doe", true, ++contadorsal, "Defensa", equips.get(0)));
-        retorn.add(new Jugador("Lorem", "Ipsum", true, ++contadorsal, "Defensa", equips.get(0)));
-        retorn.add(new Jugador("Aaron", "Garcia", true, ++contadorsal, "Defensa", equips.get(0)));
-        retorn.add(new Jugador("Manolo", "Perez", true, ++contadorsal, "Migcampista", equips.get(0)));
-        retorn.add(new Jugador("Victor", "Lorca", true, ++contadorsal, "Migcampista", equips.get(0)));
-        retorn.add(new Jugador("Federico", "Garcia", true, ++contadorsal, "Migcampista", equips.get(0)));
-        retorn.add(new Jugador("Xavier", "Gomez", true, ++contadorsal, "Davanter", equips.get(0)));
-        retorn.add(new Jugador("Sergi", "Cruz", true, ++contadorsal, "Davanter", equips.get(0)));
-        retorn.add(new Jugador("Miquel", "Lopez", true, ++contadorsal, "Davanter", equips.get(0)));
-        retorn.add(new Jugador("Bruno", "Perez", false, ++contadorsal, "Porter", equips.get(0)));
-        retorn.add(new Jugador("Luis", "Bueno", false, ++contadorsal, "Defensa", equips.get(0)));
-        retorn.add(new Jugador("Antonio", "Se", false, ++contadorsal, "Defensa", equips.get(0)));
-        retorn.add(new Jugador("Ramon", "Llull", false, ++contadorsal, "Migcampista", equips.get(0)));
-        retorn.add(new Jugador("Sergio", "Garcia", false, ++contadorsal, "Davanter", equips.get(0)));
-        retorn.add(new Jugador("Juan", "Diaz", false, ++contadorsal, "Davanter", equips.get(0)));
-        retorn.add(new Jugador("Antonio", "Diaz", false, ++contadorsal, "Davanter", equips.get(0)));
+        ArrayList<Jugador> afegirJugadors = new ArrayList<>();
+        afegirJugadors.add(new Jugador("Juan", "Garcia", true, ++contadorsal, "Porter", equips.get(0)));
+        afegirJugadors.add(new Jugador("Eric", "Rodriguez", true, ++contadorsal, "Defensa", equips.get(0)));
+        afegirJugadors.add(new Jugador("John", "Doe", true, ++contadorsal, "Defensa", equips.get(0)));
+        afegirJugadors.add(new Jugador("Lorem", "Ipsum", true, ++contadorsal, "Defensa", equips.get(0)));
+        afegirJugadors.add(new Jugador("Aaron", "Garcia", true, ++contadorsal, "Defensa", equips.get(0)));
+        afegirJugadors.add(new Jugador("Manolo", "Perez", true, ++contadorsal, "Migcampista", equips.get(0)));
+        afegirJugadors.add(new Jugador("Victor", "Lorca", true, ++contadorsal, "Migcampista", equips.get(0)));
+        afegirJugadors.add(new Jugador("Federico", "Garcia", true, ++contadorsal, "Migcampista", equips.get(0)));
+        afegirJugadors.add(new Jugador("Xavier", "Gomez", true, ++contadorsal, "Davanter", equips.get(0)));
+        afegirJugadors.add(new Jugador("Sergi", "Cruz", true, ++contadorsal, "Davanter", equips.get(0)));
+        afegirJugadors.add(new Jugador("Miquel", "Lopez", true, ++contadorsal, "Davanter", equips.get(0)));
+        afegirJugadors.add(new Jugador("Bruno", "Perez", false, ++contadorsal, "Porter", equips.get(0)));
+        afegirJugadors.add(new Jugador("Luis", "Bueno", false, ++contadorsal, "Defensa", equips.get(0)));
+        afegirJugadors.add(new Jugador("Antonio", "Se", false, ++contadorsal, "Defensa", equips.get(0)));
+        afegirJugadors.add(new Jugador("Ramon", "Llull", false, ++contadorsal, "Migcampista", equips.get(0)));
+        afegirJugadors.add(new Jugador("Sergio", "Garcia", false, ++contadorsal, "Davanter", equips.get(0)));
+        afegirJugadors.add(new Jugador("Juan", "Diaz", false, ++contadorsal, "Davanter", equips.get(0)));
+        afegirJugadors.add(new Jugador("Antonio", "Diaz", false, ++contadorsal, "Davanter", equips.get(0)));
         contadorsal = 0;
-        retorn.add(new Jugador("Juan", "Perez", true, ++contadorsal, "Porter", equips.get(1)));
-        retorn.add(new Jugador("Kevin", "Rodriguez", true, ++contadorsal, "Defensa", equips.get(1)));
-        retorn.add(new Jugador("John", "Lorca", true, ++contadorsal, "Defensa", equips.get(1)));
-        retorn.add(new Jugador("Antonio", "Ipsum", true, ++contadorsal, "Defensa", equips.get(1)));
-        retorn.add(new Jugador("Aaron", "Perez", true, ++contadorsal, "Defensa", equips.get(1)));
-        retorn.add(new Jugador("Victor", "Perez", true, ++contadorsal, "Migcampista", equips.get(1)));
-        retorn.add(new Jugador("Victor", "Hernandez", true, ++contadorsal, "Migcampista", equips.get(1)));
-        retorn.add(new Jugador("Andres", "Garcia", true, ++contadorsal, "Migcampista", equips.get(1)));
-        retorn.add(new Jugador("Xavier", "Escobar", true, ++contadorsal, "Davanter", equips.get(1)));
-        retorn.add(new Jugador("Pablo", "Cruz", true, ++contadorsal, "Davanter", equips.get(1)));
-        retorn.add(new Jugador("Miquel", "Williams", true, ++contadorsal, "Davanter", equips.get(1)));
-        retorn.add(new Jugador("Iñaki", "Perez", false, ++contadorsal, "Porter", equips.get(1)));
-        retorn.add(new Jugador("Luis", "Cruz", false, ++contadorsal, "Defensa", equips.get(1)));
-        retorn.add(new Jugador("Yeray", "Se", false, ++contadorsal, "Defensa", equips.get(1)));
-        retorn.add(new Jugador("Ramon", "Zurriaga", false, ++contadorsal, "Migcampista", equips.get(1)));
-        retorn.add(new Jugador("Ramon", "Hernandez", false, ++contadorsal, "Migcampista", equips.get(1)));
-        retorn.add(new Jugador("Pedro", "Aguado", false, ++contadorsal, "Davanter", equips.get(1)));
-        retorn.add(new Jugador("Mohammed", "Franco", false, ++contadorsal, "Davanter", equips.get(1)));
-
-        return retorn;
+        afegirJugadors.add(new Jugador("Juan", "Perez", true, ++contadorsal, "Porter", equips.get(1)));
+        afegirJugadors.add(new Jugador("Kevin", "Rodriguez", true, ++contadorsal, "Defensa", equips.get(1)));
+        afegirJugadors.add(new Jugador("John", "Lorca", true, ++contadorsal, "Defensa", equips.get(1)));
+        afegirJugadors.add(new Jugador("Antonio", "Ipsum", true, ++contadorsal, "Defensa", equips.get(1)));
+        afegirJugadors.add(new Jugador("Aaron", "Perez", true, ++contadorsal, "Defensa", equips.get(1)));
+        afegirJugadors.add(new Jugador("Victor", "Perez", true, ++contadorsal, "Migcampista", equips.get(1)));
+        afegirJugadors.add(new Jugador("Victor", "Hernandez", true, ++contadorsal, "Migcampista", equips.get(1)));
+        afegirJugadors.add(new Jugador("Andres", "Garcia", true, ++contadorsal, "Migcampista", equips.get(1)));
+        afegirJugadors.add(new Jugador("Xavier", "Escobar", true, ++contadorsal, "Davanter", equips.get(1)));
+        afegirJugadors.add(new Jugador("Pablo", "Cruz", true, ++contadorsal, "Davanter", equips.get(1)));
+        afegirJugadors.add(new Jugador("Miquel", "Williams", true, ++contadorsal, "Davanter", equips.get(1)));
+        afegirJugadors.add(new Jugador("Iñaki", "Perez", false, ++contadorsal, "Porter", equips.get(1)));
+        afegirJugadors.add(new Jugador("Luis", "Cruz", false, ++contadorsal, "Defensa", equips.get(1)));
+        afegirJugadors.add(new Jugador("Yeray", "Se", false, ++contadorsal, "Defensa", equips.get(1)));
+        afegirJugadors.add(new Jugador("Ramon", "Zurriaga", false, ++contadorsal, "Migcampista", equips.get(1)));
+        afegirJugadors.add(new Jugador("Ramon", "Hernandez", false, ++contadorsal, "Migcampista", equips.get(1)));
+        afegirJugadors.add(new Jugador("Pedro", "Aguado", false, ++contadorsal, "Davanter", equips.get(1)));
+        afegirJugadors.add(new Jugador("Mohammed", "Franco", false, ++contadorsal, "Davanter", equips.get(1)));
     }
 
-    private static ArrayList<Entrenador> carregarPoolEntrenadors(){
-        ArrayList<Entrenador> retorn = new ArrayList<>();
-        retorn.add(new Entrenador("Miguel", "Bose", equips.get(0)));
-        retorn.add(new Entrenador("Joan","Martinez", equips.get(1)));
-
-        return retorn;
+    /**
+     * Mètode que carrega objectes Entrenador als Equips
+     */
+    private static void carregarPoolEntrenadors(){
+        ArrayList<Entrenador> afegirEntrenadors = new ArrayList<>();
+        afegirEntrenadors.add(new Entrenador("Miguel", "Bose", equips.get(0)));
+        afegirEntrenadors.add(new Entrenador("Joan","Martinez", equips.get(1)));
     }
 }

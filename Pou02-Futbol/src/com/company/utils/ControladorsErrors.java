@@ -2,7 +2,17 @@ package com.company.utils;
 
 import java.util.Scanner;
 
+/**
+ * Classe estàtica de controladors d'errors
+ */
 public class ControladorsErrors {
+    /**
+     * Mètode que llegeix un input de l'usuari i s'assegura que és enter i es troba a un rang
+     *
+     * @param min Número vàlid mínim
+     * @param max Número vàlid màxim
+     * @return Número enter vàlid dins el rang especificat
+     */
     public static int llegirEnter(int min, int max){
         Scanner llegir = new Scanner(System.in);
         int retorn = 0;
